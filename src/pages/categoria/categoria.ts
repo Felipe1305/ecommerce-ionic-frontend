@@ -35,7 +35,7 @@ bucketUrl: string = API_CONFIG.bucketBaseUrl;
       this.items = response;
     },
     error => {
-      console.log(error);
+      
     });
 
 
