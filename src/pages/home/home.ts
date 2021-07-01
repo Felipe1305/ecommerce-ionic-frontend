@@ -13,7 +13,7 @@ export class HomePage {
 
   creds : CredenciaisDTO = {
     email: "",
-    senha: ""
+    senha: "",
   };
 
   constructor(public navCtrl: NavController,  public menu: MenuController, public auth: AuthService) {
@@ -27,11 +27,12 @@ export class HomePage {
   ionViewDidLeave() {
     this.menu.swipeEnable(true);
   }
-
+   
   login() {
     this.auth.authenticate(this.creds)
     .subscribe(response => {
-      console.log(response.headers.get('Authorization'));
+      console.log(this.creds)
+      this.auth.successfulLogin(response.headers.get('Authorization'));
       this.navCtrl.setRoot('CategoriaPage');
     }, error =>{})
  
