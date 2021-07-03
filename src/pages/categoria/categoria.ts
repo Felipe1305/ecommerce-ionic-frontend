@@ -41,8 +41,8 @@ bucketUrl: string = API_CONFIG.bucketBaseUrl;
 
   }
 
-  showProdutos(){
-    this.navCtrl.push('ProdutosPage');
+  showProdutos(categoria_id){
+    this.navCtrl.push('ProdutosPage', {categoria_id: categoria_id});
   }
 
 }
