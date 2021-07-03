@@ -37,7 +37,13 @@ export class ProdutosPage {
           },
           error => {});
       }
+
     }  
+
+
+    showDetail() {
+      this.navCtrl.push('ProdutoDetailsPage');
+    }
 
   }
 
