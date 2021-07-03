@@ -4,8 +4,9 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CidadeDTO } from '../../models/cidade.dto';
 import { EstadoDTO } from '../../models/estado.dto';
 import { CidadeService } from '../../services/domain/cidade.service';
+import { ClienteService } from '../../services/domain/cliente.service';
 import { EstadoService } from '../../services/domain/estado.service';
-
+import { AlertController } from 'ionic-angular/components/alert/alert-controller';
 /**
  * Generated class for the SignupPage page.
  *
@@ -24,7 +25,7 @@ export class SignupPage {
   estados: EstadoDTO[];
   cidades: CidadeDTO[];
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public cidadeService: CidadeService, public estadoService: EstadoService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public formBuilder: FormBuilder, public cidadeService: CidadeService, public estadoService: EstadoService, public clienteService: ClienteService,  public alertCtrl: AlertController) {
 
     this.formGroup = this.formBuilder.group({
       nome:['Joaquim',[Validators.required, Validators.minLength(5), Validators.maxLength(120)]],
@@ -69,7 +70,30 @@ export class SignupPage {
 
 
   signupUser(){
-    console.log('enviou o form')
+    let obj: string [] = this.formGroup.value
+    console.log(obj)
+    this.clienteService.insert(this.formGroup.value)
+      .subscribe(response => {
+        this.showInsertOk();
+      },
+      error => {});
+  }
+
+  showInsertOk() {
+    let alert = this.alertCtrl.create({
+      title: 'Sucesso!',
+      message: 'Cadastro efetuado com sucesso',
+      enableBackdropDismiss: false,
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.navCtrl.setRoot('HomePage');
+          }
+        }
+      ]
+    });
+    alert.present();
   }
 
 }
