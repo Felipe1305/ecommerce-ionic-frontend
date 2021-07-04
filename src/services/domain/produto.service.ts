@@ -10,8 +10,8 @@ export class ProdutoService {
   constructor(public http: HttpClient) {
   }
 
-  findByCategoria(categoria_id : string) {
-    return this.http.get(`${API_CONFIG.baseUrl}/produtos/pesquisar?categorias=${categoria_id}`);
+  findByCategoria(categoria_id : string, page : number = 0, linhasPorPagina : number = 24) {
+    return this.http.get(`${API_CONFIG.baseUrl}/produtos/pesquisar?categorias=${categoria_id}&page=${page}&linhasPorPagina=${linhasPorPagina}`);
   }
 
   getSmallImageFromBucket(id : string) : Observable<any> {
